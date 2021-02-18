@@ -1,0 +1,11 @@
+flask
+# Testing
+pytest
+pytest-cov
+# Database
+Flask-SQLAlchemy
+psycopg2
+# Auth
+Flask-JWT-Extended
+# Validation
+Flask-Marshmallow
