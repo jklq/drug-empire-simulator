@@ -3,7 +3,8 @@ import bcrypt
 salt = bcrypt.gensalt()
 
 def hash_password(plaintext):
-    return bcrypt.hashpw(plaintext,salt)
+    hashed_password = bcrypt.hashpw(plaintext,salt)
+    return hashed_password
 
 def hash_compare(plaintext, hashed):
     return bcrypt.checkpw(plaintext, hashed)

@@ -9,13 +9,15 @@ class RegisterView(FlaskView):
     
     @registration_validation
     def post(self):
-        return self.register_user()
-    
-    def register_user(self):
         user = {
-            "email": request.args.get('email'),
-            "username": request.args.get('username'),
-            "password": request.args.get('password').encode('utf-8')
+            "email": request.json.get('email'),
+            "username": request.json.get('username'),
+            "password": request.json.get('password').encode('utf-8')
         }
-        creation_response = create_user(user)
-        return jsonify({'msg': creation_response[0]}), creation_response[1]
+        return self.register_user(user)
+    
+    def register_user(self, user):
+        creation_response = create_user(**user)
+        resMsg = creation_response['msg']
+        status = creation_response['status']
+        return jsonify({'msg': resMsg}), status

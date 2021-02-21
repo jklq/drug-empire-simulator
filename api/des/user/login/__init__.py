@@ -12,18 +12,21 @@ class LoginView(FlaskView):
 
     @login_validation
     def post(self):
-        return self.login_user()
-
-    def login_user(self):
         user = {
-            "email": request.args.get('email'),
-            "password": request.args.get('password').encode('utf-8')
+            "email": request.json.get('email'),
+            "password": request.json.get('password').encode('utf-8')
         }
+        return self.login_user(user)
+
+    def login_user(self, user):
         user_match = user_exists(**user)
-        if user_match[0]:
-            if hash_compare(user['password'], user_match[1].password):
-                access_token = create_access_token(identity=user_match[1].username)
-                return access_token 
+        if user_match['result']:
+            user_record = user_match['matching_user']
+            user_record.password = user_record.password
+            if hash_compare(user['password'], user_record.password):
+                access_token = create_access_token(identity=user_record.username)
+                return jsonify({'msg': access_token})
+
             response = jsonify({'msg': 'Wrong Password'})
             return response, 401
         else:

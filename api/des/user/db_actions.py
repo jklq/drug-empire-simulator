@@ -9,24 +9,24 @@ def user_exists(**user):
         user_to_find = User.query.filter((User.username==user["username"])
                                          | (User.email==user['email'])).first()
     if user_to_find == None:
-        return False, None
+        return {'result': False, 'matching_user': None}
     else:
-        return True, user_to_find
+        return {'result': True, 'matching_user': user_to_find}
 
-def create_user(user):
+def create_user(**user):
     new_user = User(email=user['email'], 
                     username=user['username'], 
                     password=user['password'])
     
-    user_already_exists = user_exists(**user)[0]
+    user_already_exists = user_exists(**user)['result']
         
     if not user_already_exists:
         plaintext_pass = new_user.password
         new_user.password = hash_password(plaintext_pass)
         db.session.add(new_user)
         db.session.commit()
-        return "created", 201
+        return {'msg': 'User Created', 'status': 201}
     else:
-        return "user already exists", 409
+        return {'msg': 'User Already Exists', 'status': 409}
 
 
