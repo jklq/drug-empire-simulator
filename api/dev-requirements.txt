@@ -1,0 +1,4 @@
+neovim
+flask-debugtoolbar
+pytest
+pytest-cov
