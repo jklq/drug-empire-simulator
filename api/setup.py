@@ -14,6 +14,7 @@ setup(
         'Flask-JWT-Extended',
         'Flask-Marshmallow',
         'flask-classful'
+        'flask-cors'
     ],
     extras_require={
         'dev': [
