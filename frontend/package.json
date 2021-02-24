@@ -10,12 +10,13 @@
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "npm run lint:js",
     "test": "jest",
-    "test:e2e": "cypress" 
+    "test:e2e": "cypress"
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.0.1",
     "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/pwa": "^3.3.5",
+    "browser-cookies": "^1.2.0",
     "core-js": "^3.8.3",
     "nuxt": "^2.14.12"
   },
