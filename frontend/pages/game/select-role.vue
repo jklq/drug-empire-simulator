@@ -1,7 +1,15 @@
 <script lang="ts">
 import Vue from 'vue'
-export default Vue.extend({
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
+export default Vue.extend({
+  mounted () {
+    const loggedIn = this.$store.dispatch('user/isLoggedIn')
+    if (loggedIn) {
+      console.log("redirect")
+      this.$router.push('/login')
+    }
+  }
 })
 </script>
 <template>

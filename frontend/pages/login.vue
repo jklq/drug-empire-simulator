@@ -2,23 +2,36 @@
   <div>
     <div>
       <label for="email" class="block">Email:</label>
-      <BaseInput id="email" v-model="email" type="text" />
-      <input v-model="email">
+      <input
+        id="email"
+        v-model="email"
+        type="text"
+        class="border-2 p-2 text-lg border-gray-800"
+        @keydown.enter="authUser()"
+      >
     </div>
     <div>
       <label for="password" class="block">Password</label>
-      <BaseInput id="password" v-model="password" type="password" />
+      <input
+        id="password"
+        v-model="password"
+        type="password"
+        class="border-2 p-2 text-lg border-gray-800"
+        @keydown.enter="authUser()"
+      >
     </div>
-    <span @click="authUser({email: email, password: password})">
+    <span @click="authUser()">
       <BaseButton el="button" class="inline-block mt-2">
         Logg inn
       </BaseButton>
     </span>
-    <button @click="authUser()">testButton</button>
-    {{ errorMsg }}
+    <button @click="authUser()">
+      testButton
+    </button>
+    <span class="text-red-600 block">{{ errorMsg }}</span>
     {{ authToken }}
     <h2>VARS</h2>
-    email: {{ getEmail }} <br>
+    email: {{ email }} <br>
 
     password: {{ password }}
   </div>

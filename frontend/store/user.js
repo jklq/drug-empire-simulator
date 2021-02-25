@@ -22,7 +22,7 @@ export const state = () => ({
   loggedIn: false,
   authToken: null,
   counter: 0,
-  errorMsg: 'test'
+  errorMsg: ''
 })
 
 export const mutations = {
@@ -33,13 +33,11 @@ export const mutations = {
   setError (state, payload) {
     state.errorMsg = payload.msg
   },
-  setEmail (state, username) {
-    console.log("username: " + username)
-    console.log("username state: " + state.username)
-    state.username = username
+  setEmail (state, email) {
+    state.email = email
   },
   setPassword (state, password) {
-    state.username = password
+    state.password = password
   }
 }
 export const getters = {
@@ -51,6 +49,9 @@ export const getters = {
   },
   getEmail (state) {
     return state.email
+  },
+  getPassword (state) {
+    return state.password
   }
 }
 export const actions = {
@@ -58,25 +59,36 @@ export const actions = {
     let msg
     switch (status) {
       case 400:
-        msg = 'Invalid'
+        msg = 'Invalid input details'
+        break
+      case 401:
+        msg = 'Wrong username or password'
         break
       default:
-        msg = 'unexpected error'
+        msg = 'Unexpected error'
         break
     }
     state.commit('setError', { msg })
   },
-  authUser ({ commit, dispatch }, user) {
-    console.log(user)
+  authUser ({ commit, dispatch, getters }) {
     axios.post(API_URL_BASE + 'user/login/', {
-      email: user.email,
-      password: user.password
+      email: getters.getEmail,
+      password: getters.getPassword
     }).then((res) => {
       commit('logUserIn', { token: res.data.msg })
       cookies.set('token', res.data.msg, { expires: 2.7 })
+      cookies.set('loggedIn', "true", { expires: 2.7 })
     }).catch((error) => {
       console.log(error.response)
       dispatch('handleError', { status: error.response.status })
     })
+  },
+  isLoggedIn () {
+    const loggedIn = cookies.get('loggedIn')
+    console.log(loggedIn)
+    if (loggedIn === 'true') {
+      return true
+    }
+    return false
   }
 }
