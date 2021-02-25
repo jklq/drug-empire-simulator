@@ -1,3 +1,9 @@
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
+
+})
+</script>
 <template>
   <div>
     <h1 class="text-2xl">Select your role!</h1>
@@ -10,7 +16,7 @@
         Your job is to covertly transport the cocaine produced by the cartel to the mafia.
       </RoleCard>
       <RoleCard title="Mafia">
-        Doy, you sell drugs and kill people.
+        You sell drugs and kill people who threaten your business, in Spain.
       </RoleCard>
     </div>
   </div>
