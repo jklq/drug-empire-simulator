@@ -3,13 +3,7 @@ import Vue from 'vue'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default Vue.extend({
-  mounted () {
-    const loggedIn = this.$store.dispatch('user/isLoggedIn')
-    if (loggedIn) {
-      console.log("redirect")
-      this.$router.push('/login')
-    }
-  }
+  middleware: 'loggedIn',
 })
 </script>
 <template>

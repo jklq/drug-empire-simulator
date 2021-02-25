@@ -1,13 +1,23 @@
 <template>
   <div>
     <div>
+      <label for="username" class="block">Username:</label>
+      <input
+        id="username"
+        v-model="username"
+        type="text"
+        class="border-2 p-2 text-lg border-gray-800"
+        @keydown.enter="registerUser()"
+      >
+    </div>
+    <div>
       <label for="email" class="block">Email:</label>
       <input
         id="email"
         v-model="email"
         type="text"
         class="border-2 p-2 text-lg border-gray-800"
-        @keydown.enter="authUser()"
+        @keydown.enter="registerUser()"
       >
     </div>
     <div>
@@ -17,17 +27,14 @@
         v-model="password"
         type="password"
         class="border-2 p-2 text-lg border-gray-800"
-        @keydown.enter="authUser()"
+        @keydown.enter="registerUser()"
       >
     </div>
-    <span @click="authUser()">
+    <span @click="registerUser()">
       <BaseButton el="button" class="inline-block mt-2">
         Logg inn
       </BaseButton>
     </span>
-    <button @click="authUser()">
-      testButton
-    </button>
     <span class="text-red-600 block">{{ errorMsg }}</span>
   </div>
 </template>
@@ -62,11 +69,19 @@ export default Vue.extend({
       set (value) {
         this.$store.commit('user/setPassword', value)
       }
+    },
+    username: {
+      get () {
+        return this.$store.state.user.username
+      },
+      set (value) {
+        this.$store.commit('user/setUsername', value)
+      }
     }
   },
   methods: {
     ...mapActions({
-      authUser: 'user/authUser'
+      registerUser: 'user/registerUser'
     }),
     ...mapMutations({
       increment: 'user/increment'

@@ -21,14 +21,14 @@ export default {
 }
 </script>
 <template>
-  <router-link
+  <NuxtLink
     :is="el"
     :to="link"
     class="btn-base"
     :class="['btn-' + type]"
   >
     <slot />
-  </router-link>
+  </NuxtLink>
 </template>
 <style>
 .btn-base {

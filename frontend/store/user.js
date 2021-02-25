@@ -19,6 +19,7 @@ Vue.use(Vuex)
 export const state = () => ({
   email: 'test',
   password: 'test',
+  username: 'username',
   loggedIn: false,
   authToken: null,
   counter: 0,
@@ -38,6 +39,9 @@ export const mutations = {
   },
   setPassword (state, password) {
     state.password = password
+  },
+  setUsername (state, username) {
+    state.username = username
   }
 }
 export const getters = {
@@ -52,11 +56,15 @@ export const getters = {
   },
   getPassword (state) {
     return state.password
+  },
+  getUsername (state) {
+    return state.username
   }
 }
 export const actions = {
-  handleError (state, { status }) {
+  handleError (state, { response }) {
     let msg
+    /*
     switch (status) {
       case 400:
         msg = 'Invalid input details'
@@ -64,31 +72,42 @@ export const actions = {
       case 401:
         msg = 'Wrong username or password'
         break
+      case 409:
+        msg = 'Wrong username or password'
+        break
       default:
         msg = 'Unexpected error'
         break
-    }
-    state.commit('setError', { msg })
+    } */
+    state.commit('setError', { msg: response.data.msg })
   },
-  authUser ({ commit, dispatch, getters }) {
+  authUser ({ commit, dispatch, getters, redirect }) {
+    commit('setError', { msg: '' })
     axios.post(API_URL_BASE + 'user/login/', {
       email: getters.getEmail,
       password: getters.getPassword
     }).then((res) => {
       commit('logUserIn', { token: res.data.msg })
       cookies.set('token', res.data.msg, { expires: 2.7 })
-      cookies.set('loggedIn', "true", { expires: 2.7 })
+      cookies.set('loggedIn', 'true', { expires: 2.7 })
+      this.$router.replace({ path: '/game/select-role' })
     }).catch((error) => {
+      console.log(error)
       console.log(error.response)
-      dispatch('handleError', { status: error.response.status })
+      dispatch('handleError', { response: error.response })
     })
   },
-  isLoggedIn () {
-    const loggedIn = cookies.get('loggedIn')
-    console.log(loggedIn)
-    if (loggedIn === 'true') {
-      return true
-    }
-    return false
+  registerUser ({ commit, dispatch, getters }) {
+    commit('setError', { msg: '' })
+    axios.post(API_URL_BASE + 'user/register/', {
+      username: getters.getUsername,
+      email: getters.getEmail,
+      password: getters.getPassword
+    }).then((res) => {
+      dispatch('authUser')
+    }).catch((error) => {
+      console.log(error.response)
+      dispatch('handleError', { response: error.response })
+    })
   }
 }
