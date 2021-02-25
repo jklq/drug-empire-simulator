@@ -4,6 +4,7 @@ setup(
     name='Drug Empire Simulator',
     version='0.1.0',
     install_requires=[
+        'wheel',
         'flask',
         'cerberus',
         'bcrypt',
