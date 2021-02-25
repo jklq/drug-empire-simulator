@@ -13,7 +13,7 @@ setup(
         'psycopg2',
         'Flask-JWT-Extended',
         'Flask-Marshmallow',
-        'flask-classful'
+        'flask-classful',
         'flask-cors'
     ],
     extras_require={
