@@ -3,16 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import cookies from 'browser-cookies'
 
-import config from '../nuxt.config.js'
-const development = config.dev || false
-
-let API_URL_BASE = '/'
-
-if (development) {
-  API_URL_BASE = 'http://localhost:5000/'
-} else {
-  API_URL_BASE = '/api/'
-}
+import { API_URL_BASE } from '../config.js'
 
 Vue.use(Vuex)
 

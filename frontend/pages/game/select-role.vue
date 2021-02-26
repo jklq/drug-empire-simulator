@@ -3,7 +3,7 @@ import Vue from 'vue'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default Vue.extend({
-  middleware: 'loggedIn',
+  middleware: 'loggedIn'
 })
 </script>
 <template>

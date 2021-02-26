@@ -14,6 +14,8 @@ def create_app(config_filename):
 
     # Blueprints
     from .user import user
+    from .game import game
     app.register_blueprint(user, url_prefix='/user')
+    app.register_blueprint(game, url_prefix='/game')
 
     return app
