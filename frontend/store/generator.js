@@ -34,5 +34,11 @@ export const actions = {
       commit('menuIsGenerated', { menu: res.data })
       return res.data
     })
+  },
+  post ({ commit }, { url }) {
+    console.log(url)
+    axios.post(API_URL_BASE + url).then(res => {
+      return res.data.status
+    })
   }
 }
