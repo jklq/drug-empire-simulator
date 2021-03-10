@@ -1,3 +1,7 @@
+# DB
+test.db
+
+
 .DS_Store
 .env
 .flaskenv
