@@ -6,5 +6,7 @@ export default async (context) => {
   if (!loggedIn) {
     return context.redirect('/login')
   }
+  const token = cookies.get('token')
+  context.$axios.defaults.headers.common.Authorization = 'Bearer ' + token // for all requests
   return false
 }

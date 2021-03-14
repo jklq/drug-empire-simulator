@@ -54,8 +54,8 @@ export const getters = {
 }
 export const actions = {
   handleError (state, { response }) {
-    let msg
     /*
+    let msg
     switch (status) {
       case 400:
         msg = 'Invalid input details'
@@ -81,7 +81,7 @@ export const actions = {
       commit('logUserIn', { token: res.data.msg })
       cookies.set('token', res.data.msg, { expires: 2.7 })
       cookies.set('loggedIn', 'true', { expires: 2.7 })
-      this.$router.replace({ path: '/game/select-role' })
+      this.$router.replace({ path: '/game' })
     }).catch((error) => {
       console.log(error)
       console.log(error.response)

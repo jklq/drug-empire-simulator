@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 export default Vue.extend({
   layout: 'game',
-  middleware: 'loggedIn'
+  middleware: ['loggedIn', 'canPlay']
 })
 </script>
 <template>
