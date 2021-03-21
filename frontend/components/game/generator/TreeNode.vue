@@ -29,10 +29,15 @@ export default {
     >
       Action: {{ node.name }}: {{ typeof node.action }}
     </button>
+    <span
+      class="label"
+      v-if="node.type == 'label'"
+    >
+      Role: {{ node.name }}
+    </span>
 
     <ul v-if="node.submenu && node.submenu.length && typeof node.folded !== 'undefined' && !node.folded">
       <GameGeneratorTreeNode v-for="child in node.submenu" :key="child.name" :node="child" />
     </ul>
   </li>
 </template>
-

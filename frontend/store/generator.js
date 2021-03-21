@@ -5,11 +5,7 @@ import axios from 'axios'
 import { API_URL_BASE } from '../config.js'
 
 Vue.use(Vuex)
-
-export const state = () => ({
-  menuGenerated: false,
-  menu: null
-})
+export const state = () => ({ menuGenerated: false, menu: null })
 
 export const getters = {
   getMenuGenerated (state) {
@@ -29,15 +25,16 @@ export const mutations = {
 
 export const actions = {
   fetchMenu ({ commit }) {
-    axios.get(API_URL_BASE + 'game/generator/').then(res => {
+    const cookies = this.app.$cookiz
+    const token = cookies.get('token')
+    this.$axios.defaults.headers.common.Authorization = 'Bearer ' + token
+    this.$axios.get(API_URL_BASE + 'game/generator/').then((res) => {
       commit('menuIsGenerated', { menu: res.data })
       return res.data
     })
   },
   post ({ commit }, { url }) {
     console.log(url)
-    axios.post(API_URL_BASE + url).then(res => {
-      return res.data.status
-    })
+    axios.post(API_URL_BASE + url).then((res) => { return res.data.status }) 
   }
 }

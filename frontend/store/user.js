@@ -72,7 +72,7 @@ export const actions = {
     } */
     state.commit('setError', { msg: response.data.msg })
   },
-  authUser ({ commit, dispatch, getters, redirect }) {
+  authUser ({ commit, dispatch, getters }) {
     commit('setError', { msg: '' })
     axios.post(API_URL_BASE + 'user/login/', {
       email: getters.getEmail,
@@ -90,7 +90,7 @@ export const actions = {
   },
   registerUser ({ commit, dispatch, getters }) {
     commit('setError', { msg: '' })
-    axios.post(API_URL_BASE + 'user/register/', {
+    $axios.post(API_URL_BASE + 'user/register/', {
       username: getters.getUsername,
       email: getters.getEmail,
       password: getters.getPassword
