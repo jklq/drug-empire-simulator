@@ -8,9 +8,9 @@ import { API_URL_BASE } from '../config.js'
 Vue.use(Vuex)
 
 export const state = () => ({
-  email: 'test',
-  password: 'test',
-  username: 'username',
+  email: '',
+  password: '',
+  username: '',
   loggedIn: false,
   authToken: null,
   counter: 0,

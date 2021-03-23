@@ -25,9 +25,6 @@
         Logg inn
       </BaseButton>
     </span>
-    <button @click="authUser()">
-      testButton
-    </button>
     <span class="text-red-600 block">{{ errorMsg }}</span>
   </div>
 </template>
